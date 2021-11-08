@@ -1,0 +1,123 @@
+<resources>
+    <string name="app_name">CHIPThread</string>
+    <string name="barcode_scanner_activity_toolbar_title">QR Scan</string>
+    <string name="text_ok">Ok</string>
+    <string name="location_permission_denied_title">Location permission required</string>
+    <string name="location_permission_denied_message">Since location permission was denied, some functions of the app may be unavailable. </string>
+    <string name="chip_device_info_title">CHIP Device Info:</string>
+    <string name="chip_device_info_version_label">Version:</string>
+    <string name="chip_device_info_vendor_id_label">Vendor ID:</string>
+    <string name="chip_device_info_product_id_label">Product ID:</string>
+    <string name="chip_device_info_discriminator_label">Discriminator:</string>
+    <string name="chip_device_info_setup_code_label">Setup PIN Code:</string>
+    <string name="chip_device_info_optional_vendor_tags_label">Optional Vendor tags:</string>
+    <string name="chip_device_info_discovery_capabilities_text">Discovery capabilities: %1s</string>
+    <string name="camera_permission_missing_alert_title">Camera permission missing</string>
+    <string name="camera_permission_missing_alert_subtitle">Camera permission required to be able to scan the QR code.</string>
+    <string name="camera_permission_missing_alert_try_again">Try again</string>
+    <string name="camera_unavailable_alert_title">Camera unavailable</string>
+    <string name="camera_unavailable_alert_subtitle">Error launching camera to scan the QR code.</string>
+    <string name="camera_unavailable_alert_exit">Exit</string>
+
+    <string name="send_echo_btn_text">Send echo</string>
+    <string name="echo_status_connecting">Connecting…</string>
+    <string name="echo_status_sending_message">Sending message…</string>
+    <string name="echo_status_response">Received echo response:\n\n%1$s</string>
+    <string name="scan_qr_code_btn_text">Scan QR Code</string>
+    <string name="provision_wifi_credentials_btn_text">Provision CHIP device with Wi-Fi</string>
+    <string name="provision_thread_credentials_btn_text">Provision CHIP device with Thread</string>
+    <string name="echo_client_btn_text">Echo Client</string>
+    <string name="on_off_level_btn_text">Light On/Off &amp; Level Cluster</string>
+    <string name="enter_ip_address_hint_text">Enter IP Address (eg. 192.168.10.2)</string>
+    <string name="enter_fabric_id_hint_text">Enter Fabric ID</string>
+    <string name="enter_device_id_hint_text">Enter Device ID</string>
+    <string name="enter_endpoint_id_hint_text">Enter Endpoint ID</string>
+    <string name="echo_input_hint_text">Enter message for device</string>
+    <string name="update_device_address_btn_text">Update address</string>
+
+    <string name="send_command_on_btn_text">On</string>
+    <string name="send_command_off_btn_text">Off</string>
+    <string name="send_command_toggle_btn_text">Toggle</string>
+    <string name="read_on_off_attribute_btn_text">Read On/Off</string>
+    <string name="send_command_type_label_text">%s/%d command sent!</string>
+    <string name="rendezvous_over_ble_btn_text">Rendezvous over BLE</string>
+    <string name="rendezvous_over_soft_ap_btn_text">Rendezvous over Soft AP</string>
+
+    <string name="rendezvous_over_ble_scanning_text">Scanning for BLE device %1$s</string>
+    <string name="rendezvous_over_ble_scanning_failed_text">Device not found</string>
+    <string name="rendezvous_over_ble_connecting_text">Connecting to %1$s</string>
+    <string name="rendezvous_over_ble_pairing_text">Pairing</string>
+    <string name="rendezvous_over_ble_pairing_failure_text">Pairing failed</string>
+    <string name="rendezvous_over_ble_commissioning_success_text">Network commissioning completed</string>
+    <string name="rendezvous_over_ble_commissioning_failure_text">Network commissioning failed</string>
+
+    <string name="attestation_test_btn_text">Attestation Test</string>
+    <string name="attestation_fetching_status">Fetching…</string>
+    <string name="attestation_app_not_found">No attestation app found</string>
+
+    <string name="enter_wifi_credentials_title">Enter your Wi-Fi network and password below that you want to put your CHIP device on.</string>
+    <string name="enter_wifi_ssid_hint">Enter Wi-Fi SSID</string>
+    <string name="enter_wifi_password_hint">Enter Wi-Fi password</string>
+    <string name="enter_wifi_save_network_btn">Save network</string>
+
+    <string name="enter_thread_credentials_title">Enter credentials of the Thread network that you want to put your CHIP device on.</string>
+    <string name="enter_thread_channel_hint">Channel:</string>
+    <string name="enter_thread_panid_hint">PAN ID:</string>
+    <string name="enter_thread_xpanid_hint">Extended PAN ID:</string>
+    <string name="enter_thread_master_key_hint">Master Key:</string>
+    <string name="enter_thread_channel_text">15</string>
+    <string name="enter_thread_panid_text">1234</string>
+    <string name="enter_thread_xpanid_text">11:11:11:11:22:22:22:22</string>
+    <string name="enter_thread_master_key_text">00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:FF</string>
+    <string name="enter_thread_save_network_btn">Save network</string>
+
+    <string name="nfc_tag_action_title">CHIP NFC Tag read. Choose an action:</string>
+    <string name="nfc_tag_action_show">Show device information</string>
+    <string name="nfc_tag_action_wifi">Provision into Wi-Fi network</string>
+    <string name="nfc_tag_action_thread">Provision into Thread network</string>
+
+    <string name="sensor_client_btn_text">Sensor clusters</string>
+    <string name="sensor_client_read_btn_text">Read</string>
+    <string name="sensor_client_watch_btn_text">Watch</string>
+    <string name="sensor_client_last_value_text">Last value: %1$.1f %2$s</string>
+    <string name="sensor_client_read_error_text">Failed to read the sensor: %1$s</string>
+
+    <string name="brightness">亮度: %1$d</string>
+    <string name="temperature">温度: %1$.2f°C</string>
+    <string name="humidity">湿度: %1$.2f%%</string>
+    <string name="power">功率: %1$dW</string>
+    <string name="generate_electric">产生电量: %1$.2fkW⋅h</string>
+    <string name="consumption_electric">消耗电量: %1$.2fkW⋅h</string>
+    <string name="socket_generate_electric">产生电量: %1$dW⋅h</string>
+    <string name="socket_consumption_electric">消耗电量: %1$dW⋅h</string>
+    <string name="current">电流: %1$dA</string>
+    <string name="voltage">电压: %1$.2fV</string>
+    <string name="lift">升降: %1$d%%</string>
+    <string name="tilt">倾斜: %1$d%%</string>
+
+    <string name="door_sensor">门磁</string>
+    <string name="motion_sensor">人体感应</string>
+    <string name="water_leakage_sensor">水浸传感器</string>
+    <string name="temp_humidity_sensor">温湿度传感器</string>
+    <string name="power_tag">Power Tag</string>
+    <string name="dimmer_1g">一路调光</string>
+    <string name="dimmer_2g">二路调光</string>
+    <string name="switch_1g">一路开关</string>
+    <string name="switch_2g">二路开关</string>
+    <string name="switch_3g">三路开关</string>
+    <string name="socket">智能插座</string>
+    <string name="shutter">窗帘</string>
+    <string name="unknown">未知</string>
+    <string name="on">开</string>
+    <string name="off">关</string>
+    <string name="normal">正常</string>
+    <string name="abnormal">异常</string>
+    <string name="has_person">有人</string>
+    <string name="no_person">没人</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
+    <string name="stop">停止</string>
+    <string name="no_device_please_add">没有设备，请添加</string>
+    <string name="add_device">添加设备</string>
+    <string name="please_click_again_to_exit">请再按一次退出应用</string>
+</resources>
