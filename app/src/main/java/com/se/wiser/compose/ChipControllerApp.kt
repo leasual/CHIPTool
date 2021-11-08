@@ -1,16 +1,11 @@
 package com.se.wiser.compose
 
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsPadding
@@ -29,7 +24,7 @@ fun ChipControllerApp(
         ProvideWindowInsets {
 
             val systemUiController = rememberSystemUiController()
-            var darkIcons = MaterialTheme.colors.isLight
+            val darkIcons = MaterialTheme.colors.isLight
             systemUiController.run {
                 setStatusBarColor(MaterialTheme.colors.primary, darkIcons = darkIcons)
                 setSystemBarsColor(MaterialTheme.colors.primary, darkIcons = darkIcons)
@@ -46,12 +41,13 @@ fun ChipControllerApp(
             val coroutineScope = rememberCoroutineScope()
             val scaffoldState = rememberScaffoldState()
             val tabItems = listOf<TabItem>(
-                TabItem(R.mipmap.outline_add_white_24, "Device", MainDestinations.HOME_ROUTE),
-                TabItem(R.mipmap.outline_add_white_24, "Group", MainDestinations.ADD_DEVICE),
+                TabItem(R.mipmap.outline_add_white_24, "Device", MainDestinations.Home),
+                TabItem(R.mipmap.outline_add_white_24, "Group", MainDestinations.AddDevice),
             )
 
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val currentRoute = navBackStackEntry?.destination?.route ?: MainDestinations.HOME_ROUTE
+//            val navBackStackEntry by navController.currentBackStackEntryAsState()
+//            val currentRoute = navBackStackEntry?.destination?.route ?: MainDestinations.Home
+            val currentScreen by navController.currentScreen()
             Scaffold(
                 scaffoldState = scaffoldState,
                 drawerContent = {
@@ -60,7 +56,9 @@ fun ChipControllerApp(
 //                    )
                 },
                 bottomBar = {
-                    BottomNavigationBar(tabItems = tabItems, navController = navController)
+                    if (currentScreen != MainDestinations.NoBottomBar) {
+                        BottomNavigationBar(tabItems = tabItems, navController = navController)
+                    }
                 },
                 //https://medium.com/mobile-app-development-publication/android-jetpack-compose-inset-padding-made-easy-5f156a790979
                 //modified virtual system navigation bar padding

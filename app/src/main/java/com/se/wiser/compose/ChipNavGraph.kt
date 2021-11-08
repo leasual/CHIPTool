@@ -3,11 +3,10 @@ package com.se.wiser.compose
 import android.util.Log
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -28,11 +27,13 @@ import com.se.wiser.utils.toJson
 import kotlinx.coroutines.launch
 
 object MainDestinations {
-    const val HOME_ROUTE = "home"
-    const val DEVICE = "device"
-    const val ADD_DEVICE = "addDevice"
-    const val SCAN_QRCODE = "scanQRCode"
-    const val PAIRING_DEVICE = "pairingDevice"
+    const val Home = "home"
+    const val Group = "group"
+    const val NoBottomBar = "noBottomBar"
+    const val Device = "device"
+    const val AddDevice = "addDevice"
+    const val ScanQRCode = "scanQRCode"
+    const val PairingDevice = "pairingDevice"
 }
 
 const val TAG = "ChipNavGraph"
@@ -45,7 +46,7 @@ fun ChipNavGraph(
     appContainer: AppContainer,
     navController: NavHostController = rememberNavController(),
     scaffoldState: ScaffoldState = rememberScaffoldState(),
-    startDestination: String = MainDestinations.HOME_ROUTE
+    startDestination: String = MainDestinations.Home
 ) {
     val actions = remember(navController) { MainActions(navController) }
     val coroutineScope = rememberCoroutineScope()
@@ -55,7 +56,7 @@ fun ChipNavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(MainDestinations.HOME_ROUTE) {
+        composable(MainDestinations.Home) {
             val viewModel = hiltViewModel<HomeViewModel>()
             HomeScreen(
                 viewModel = viewModel,
@@ -65,7 +66,7 @@ fun ChipNavGraph(
                 scaffoldState = scaffoldState
             )
         }
-        composable(MainDestinations.ADD_DEVICE) {
+        composable(MainDestinations.AddDevice) {
             val viewModel = hiltViewModel<AddDeviceViewModel>()
             AddDeviceScreen(
                 viewModel = viewModel,
@@ -74,7 +75,7 @@ fun ChipNavGraph(
             )
         }
         composable(
-            route = "${MainDestinations.SCAN_QRCODE}/{type}",
+            route = "${MainDestinations.ScanQRCode}/{type}",
             arguments = listOf(
                 navArgument("type") { type = NavType.IntType}
             )
@@ -89,7 +90,7 @@ fun ChipNavGraph(
             )
         }
         composable(
-            route = "${MainDestinations.DEVICE}/{device}/{className}",
+            route = "${MainDestinations.Device}/{device}/{className}",
             //it doesn't need this when pass serializable or parcelable model
             //has error so use json instead
 //            arguments = listOf(
@@ -117,22 +118,40 @@ fun ChipNavGraph(
     }
 }
 
+@Composable
+fun NavController.currentScreen(): State<String> {
+    val currentScreen = remember { mutableStateOf(MainDestinations.Home) }
+    DisposableEffect(key1 = this){
+        val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
+            when {
+                destination.hierarchy.any { it.route == MainDestinations.Home
+                        || it.route == MainDestinations.Group } -> {
+                    currentScreen.value = MainDestinations.Home
+                } else -> currentScreen.value = MainDestinations.NoBottomBar
+            }
+        }
+        addOnDestinationChangedListener(listener = listener)
+        onDispose {  }
+    }
+    return currentScreen
+}
+
 class MainActions(navController: NavHostController) {
 
     val navigateToDeviceScreen: (BaseDevice, Class<*>) -> Unit = { device, cls ->
         //using serializable should do this
 //        navController.currentBackStackEntry?.arguments?.putSerializable("device", device)
         Log.d(TAG, "before convert=$device, cls=${cls.canonicalName}")
-        navController.navigate("${MainDestinations.DEVICE}/${device.toJson()}/${cls.canonicalName}")
+        navController.navigate("${MainDestinations.Device}/${device.toJson()}/${cls.canonicalName}")
     }
     val navigateToAddDeviceScreen: () -> Unit = {
-        navController.navigate(MainDestinations.ADD_DEVICE)
+        navController.navigate(MainDestinations.AddDevice)
     }
     val navigateToScanScreen: (Int) -> Unit = { type ->
-        navController.navigate("${MainDestinations.SCAN_QRCODE}/$type")
+        navController.navigate("${MainDestinations.ScanQRCode}/$type")
     }
     val navigatePairingScreen: (Int) -> Unit = { type ->
-        navController.navigate("${MainDestinations.PAIRING_DEVICE}/$type")
+        navController.navigate("${MainDestinations.PairingDevice}/$type")
     }
     val upPress: () -> Unit = {
         navController.navigateUp()
