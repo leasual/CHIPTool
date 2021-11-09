@@ -93,14 +93,14 @@ fun OneDimmerCard(
                     .constrainAs(onOff) {
                         top.linkTo(parent.top, 8.dp)
                         bottom.linkTo(parent.bottom, 8.dp)
-                        end.linkTo(parent.end, 8.dp)
+                        end.linkTo(parent.end, 0.dp)
                     }
             ) {
                 Icon(
                     painter = painterResource(id = R.mipmap.outline_power_settings_new_white_36),
                     contentDescription = "onOff",
                     tint = if (device.state) MaterialTheme.colors.switchOn else MaterialTheme.colors.switchOff,
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier.padding(end = 0.dp)
                 )
             }
         }

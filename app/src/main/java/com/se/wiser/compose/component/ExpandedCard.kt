@@ -1,6 +1,7 @@
 package com.se.wiser.compose.component
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.layout.*
@@ -10,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
@@ -21,6 +23,7 @@ import com.se.wiser.compose.Constants.COLLAPSE_ANIMATION_DURATION
 import com.se.wiser.compose.Constants.EXPAND_ANIMATION_DURATION
 import com.se.wiser.compose.Constants.FADE_IN_ANIMATION_DURATION
 import com.se.wiser.compose.Constants.FADE_OUT_ANIMATION_DURATION
+import com.se.wiser.compose.TAG
 import com.se.wiser.compose.theme.contentBackground
 
 @Composable
@@ -30,15 +33,10 @@ fun ExpandedCard(
     onCardArrowClick: () -> Unit,
     expanded: Boolean
 ) {
-    val transitionState = remember {
-        MutableTransitionState(expanded).apply {
-            targetState = !expanded
-        }
-    }
-    val transition = updateTransition(
-        transitionState,
-        label = "transition"
-    )
+    //https://developer.android.com/reference/kotlin/androidx/compose/animation/core/MutableTransitionState
+    val transitionState = remember { MutableTransitionState(expanded) }
+    transitionState.targetState = !expanded
+    val transition = updateTransition(transitionState, label = "transition")
     val arrowRotationDegree by transition.animateFloat(
         {
             tween(durationMillis = EXPAND_ANIMATION_DURATION)
@@ -61,7 +59,8 @@ fun ExpandedCard(
         Column() {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 CardTitle(title = title)
                 CardArrow(

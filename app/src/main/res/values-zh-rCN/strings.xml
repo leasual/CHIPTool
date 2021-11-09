@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CHIPThread</string>
+    <string name="app_name">CHIPTool</string>
     <string name="barcode_scanner_activity_toolbar_title">QR Scan</string>
     <string name="text_ok">Ok</string>
     <string name="location_permission_denied_title">Location permission required</string>

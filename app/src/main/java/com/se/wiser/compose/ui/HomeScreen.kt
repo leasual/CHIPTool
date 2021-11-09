@@ -134,6 +134,10 @@ fun HomeScreen(
                 dimmer.level = 200
                 dimmer.productModeId = ProductModeId.DIMMER_1G
                 deviceList.add(dimmer)
+                val onOff = OnOffDevice()
+                onOff.productModeId = ProductModeId.SWITCH_1G
+                onOff.state = true
+                deviceList.add(onOff)
 //                for (i in 0..20) {
 //                    val onOff = OnOffDevice()
 //                    onOff.productModeId = ProductModeId.SWITCH_1G

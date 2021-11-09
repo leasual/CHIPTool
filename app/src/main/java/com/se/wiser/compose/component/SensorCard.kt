@@ -13,9 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.chip.chiptool.R
-import com.se.wiser.compose.theme.ChipTheme
-import com.se.wiser.compose.theme.switchOff
-import com.se.wiser.compose.theme.switchOn
+import com.se.wiser.compose.theme.*
 import com.se.wiser.model.*
 import com.se.wiser.utils.DeviceUtil
 import com.se.wiser.utils.ProductModeId
@@ -35,7 +33,7 @@ fun OneStateSensorCard(
         else -> 0
     }
     Card(
-        backgroundColor = MaterialTheme.colors.onBackground,
+        backgroundColor = MaterialTheme.colors.contentBackground,
         elevation = 0.dp,
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         modifier = Modifier
@@ -63,13 +61,13 @@ fun OneStateSensorCard(
                     Icon(
                         painter = painterResource(id = DeviceUtil.getDeviceResId(device.productModeId)),
                         contentDescription = "icon",
-                        tint = MaterialTheme.colors.primary,
+                        tint = MaterialTheme.colors.schneider,
                         modifier = Modifier.padding(start = 8.dp)
                     )
                     Text(
                         text = DeviceUtil.getDeviceName(device.productModeId, context),
                         style = MaterialTheme.typography.subtitle1,
-                        color = MaterialTheme.colors.onPrimary,
+                        color = MaterialTheme.colors.onSurface,
                         modifier = Modifier.padding(start = 8.dp)
                     )
                 }
@@ -77,7 +75,7 @@ fun OneStateSensorCard(
             Text(
                 text = DeviceUtil.getStateName(device.productModeId, state, context),
                 style = MaterialTheme.typography.subtitle1,
-                color = MaterialTheme.colors.onPrimary,
+                color = MaterialTheme.colors.onSurface,
                 modifier = Modifier.padding(start = 8.dp, end = 16.dp)
             )
 //            IconButton(
