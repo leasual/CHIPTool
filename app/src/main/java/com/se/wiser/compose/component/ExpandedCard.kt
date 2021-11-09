@@ -46,7 +46,7 @@ fun ExpandedCard(
         if (it) 0f else 180f
     }
     Card(
-        backgroundColor = MaterialTheme.colors.contentBackground,
+        backgroundColor = MaterialTheme.colors.primary,
         elevation = 0.dp,
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         modifier = Modifier

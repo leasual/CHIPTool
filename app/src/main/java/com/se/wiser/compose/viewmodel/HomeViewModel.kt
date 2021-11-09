@@ -46,7 +46,9 @@ class HomeViewModel @Inject constructor(val app: App/*,
     private var lastDeviceId: Long = 0
     //
     private val _expandedCardIdsList = MutableStateFlow(listOf<Int>())
+    private val _expandedComposeCardIdsList = MutableStateFlow(listOf<Int>())
     val expandedCardIdsList: StateFlow<List<Int>> get() = _expandedCardIdsList
+    val expandedComposeCardIdsList: StateFlow<List<Int>> get() = _expandedComposeCardIdsList
 
     private var partListCache = mutableListOf<Int>()
     private var readPartListTimer: Timer? = null
@@ -84,6 +86,16 @@ class HomeViewModel @Inject constructor(val app: App/*,
      */
     fun onCardArrowClicked(cardId: Int) {
         _expandedCardIdsList.value = _expandedCardIdsList.value.toMutableList().also { list ->
+            if (list.contains(cardId)) list.remove(cardId) else list.add(cardId)
+        }
+    }
+
+
+    /**
+     * expanded or fold compose device
+     */
+    fun onComposeCardArrowClicked(cardId: Int) {
+        _expandedComposeCardIdsList.value = _expandedComposeCardIdsList.value.toMutableList().also { list ->
             if (list.contains(cardId)) list.remove(cardId) else list.add(cardId)
         }
     }

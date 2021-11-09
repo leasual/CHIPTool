@@ -41,8 +41,8 @@ fun ChipControllerApp(
             val coroutineScope = rememberCoroutineScope()
             val scaffoldState = rememberScaffoldState()
             val tabItems = listOf<TabItem>(
-                TabItem(R.mipmap.outline_add_white_24, "Device", MainDestinations.Home),
-                TabItem(R.mipmap.outline_add_white_24, "Group", MainDestinations.AddDevice),
+                TabItem(R.mipmap.outline_home_white_24, "Device", MainDestinations.Home),
+                TabItem(R.mipmap.outline_group_work_white_24, "Group", MainDestinations.AddDevice),
             )
 
 //            val navBackStackEntry by navController.currentBackStackEntryAsState()

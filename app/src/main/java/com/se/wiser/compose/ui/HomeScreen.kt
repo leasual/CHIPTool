@@ -18,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -39,6 +40,8 @@ import com.se.wiser.model.BaseDevice
 import com.se.wiser.model.DimmerDevice
 import com.se.wiser.model.OnOffDevice
 import com.se.wiser.utils.ClusterId
+import com.se.wiser.utils.ClusterUtil
+import com.se.wiser.utils.DeviceUtil
 import com.se.wiser.utils.ProductModeId
 
 @Composable
@@ -50,6 +53,7 @@ fun HomeScreen(
     scaffoldState: ScaffoldState = rememberScaffoldState()
 ) {
     val expandedCardIds = viewModel.expandedCardIdsList.collectAsState()
+    val expandedComposeCardIds = viewModel.expandedComposeCardIdsList.collectAsState()
     val scrollState = rememberLazyListState()
 //    Log.d(TAG, "expandedCardIds= ${expandedCardIds.value}")
     HomeScreen(
@@ -59,6 +63,7 @@ fun HomeScreen(
         navigateToAddDevice = navigateToAddDevice,
         scaffoldState = scaffoldState,
         expandedCardIds = expandedCardIds,
+        expandedComposeCardIds = expandedComposeCardIds,
         scrollState = scrollState
     )
 }
@@ -71,6 +76,7 @@ fun HomeScreen(
     navigateToAddDevice:() -> Unit,
     scaffoldState: ScaffoldState,
     expandedCardIds: State<List<Int>>,
+    expandedComposeCardIds: State<List<Int>>,
     scrollState: LazyListState,
 ) {
     Scaffold(
@@ -130,14 +136,16 @@ fun HomeScreen(
             },
             content = {
                 val deviceList = arrayListOf<Any>()
-                val dimmer = DimmerDevice()
-                dimmer.level = 200
-                dimmer.productModeId = ProductModeId.DIMMER_1G
+                val dimmer = ClusterUtil.createNewDevice(ProductModeId.DIMMER_1G, 0, "Dimmer", true)
                 deviceList.add(dimmer)
-                val onOff = OnOffDevice()
-                onOff.productModeId = ProductModeId.SWITCH_1G
-                onOff.state = true
+                val onOff = ClusterUtil.createNewDevice(ProductModeId.SWITCH_1G, 0, "OnOff", true)
                 deviceList.add(onOff)
+                val composeList = arrayListOf<BaseDevice>()
+                val onOff1 = ClusterUtil.createNewDevice(ProductModeId.SWITCH_2G, 0, "OnOff", true)
+                val onOff2 = ClusterUtil.createNewDevice(ProductModeId.SWITCH_2G, 1, "OnOff", false)
+                composeList.add(onOff1)
+                composeList.add(onOff2)
+                deviceList.add(composeList)
 //                for (i in 0..20) {
 //                    val onOff = OnOffDevice()
 //                    onOff.productModeId = ProductModeId.SWITCH_1G
@@ -148,6 +156,7 @@ fun HomeScreen(
                     modifier = modifier,
                     scrollState = scrollState,
                     expandedCardIds = expandedCardIds,
+                    expandedComposeCardIds = expandedComposeCardIds,
                     viewModel = viewModel,
                     navigateToDevice = navigateToDevice,
                 )
@@ -212,9 +221,11 @@ fun DeviceList(
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState(),
     expandedCardIds: State<List<Int>>,
+    expandedComposeCardIds: State<List<Int>>,
     viewModel: HomeViewModel,
     navigateToDevice: (BaseDevice, Class<*>) -> Unit
 ) {
+    val context = LocalContext.current
     LazyColumn(
         modifier = modifier
             .fillMaxHeight()
@@ -230,11 +241,34 @@ fun DeviceList(
             ExpandedCard(
                 title = "$index",
                 content = {
-                    DeviceCard(
-                        device = card,
-                        viewModel = viewModel,
-                        navigateToDevice = navigateToDevice
-                    )
+                    if (card is BaseDevice) {
+                        DeviceCard(
+                            index = -1,
+                            device = card,
+                            viewModel = viewModel,
+                            navigateToDevice = navigateToDevice
+                        )
+                    } else {
+                        ExpandedCard(
+                            title = DeviceUtil.getDeviceName((card as ArrayList<BaseDevice>)[0].productModeId, context),
+                            content = {
+                                Column {
+                                    (card as? ArrayList<Any>)?.let {
+                                        it.mapIndexed { index, device ->
+                                            DeviceCard(
+                                                index = index,
+                                                device = device,
+                                                viewModel = viewModel,
+                                                navigateToDevice = navigateToDevice
+                                            )
+                                        }
+                                    }
+                                }
+                            },
+                            onCardArrowClick = { viewModel.onComposeCardArrowClicked(index) },
+                            expanded = expandedComposeCardIds.value.contains(index)
+                        )
+                    }
                 },
                 onCardArrowClick = {
                     Log.d(TAG, "click arrow")
@@ -248,6 +282,7 @@ fun DeviceList(
 
 @Composable
 fun DeviceCard(
+    index: Int,
     device: Any,
     viewModel: HomeViewModel,
     navigateToDevice: (BaseDevice, Class<*>) -> Unit
