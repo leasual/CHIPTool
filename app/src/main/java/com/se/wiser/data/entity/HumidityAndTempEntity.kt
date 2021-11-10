@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "humidity_temp_device")
 data class HumidityAndTempEntity(
     @PrimaryKey(autoGenerate = true)
-    var deviceId: Long = 0L,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "userId")
     var userId: Int,

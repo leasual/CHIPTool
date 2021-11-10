@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "gateway")
 data class GatewayEntity(
     @PrimaryKey(autoGenerate = true)
-    var gatewayId: Long = 0L,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "userId")
     var userId: Int,

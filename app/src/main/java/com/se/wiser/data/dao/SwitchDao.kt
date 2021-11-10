@@ -17,5 +17,5 @@ interface SwitchDao {
     suspend fun deleteSwitch(vararg device: SwitchEntity)
 
     @Query("SELECT * FROM switch_device")
-    suspend fun getAllSwitches(): Flow<List<SwitchEntity>>
+    fun getAllSwitches(): Flow<List<SwitchEntity>>
 }

@@ -17,5 +17,5 @@ interface HumidityAndTempDao {
     suspend fun deleteHumidityAndTemps(vararg device: HumidityAndTempEntity)
 
     @Query("SELECT * FROM humidity_temp_device")
-    suspend fun getAllHumidityAndTemps(): Flow<List<HumidityAndTempEntity>>
+    fun getAllHumidityAndTemps(): Flow<List<HumidityAndTempEntity>>
 }

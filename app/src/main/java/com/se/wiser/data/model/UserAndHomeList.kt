@@ -8,7 +8,7 @@ import com.se.wiser.data.entity.UserEntity
 data class UserAndHomeList(
     @Embedded val user: UserEntity,
     @Relation(
-        parentColumn = "userId",
+        parentColumn = "id",
         entityColumn = "userId"
     )
     val homeList: List<HomeEntity>?

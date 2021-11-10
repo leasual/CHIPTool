@@ -1,17 +1,23 @@
 package com.se.wiser.compose.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.chip.chiptool.ChipClient
 import com.se.wiser.App
 import com.se.wiser.data.MatterDatabase
+import com.se.wiser.data.dao.GatewayDao
+import com.se.wiser.data.dao.UserDao
+import com.se.wiser.data.entity.UserEntity
+import com.se.wiser.data.model.UserAndHomeList
 import com.se.wiser.model.*
 import com.se.wiser.utils.ClusterId
 import com.se.wiser.utils.ClusterUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -21,9 +27,9 @@ import kotlin.random.Random
 
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(val app: App/*,
-                    val gatewayRepository: GatewayRepository,
-                    val deviceRepository: DeviceRepository*/
+class HomeViewModel @Inject constructor(val app: App,
+                                        val userDao: UserDao,
+                                        val gatewayDao: GatewayDao
 ) : ViewModel() {
 
     companion object {
@@ -54,9 +60,13 @@ class HomeViewModel @Inject constructor(val app: App/*,
         val random: Long = System.currentTimeMillis()
     )
 
-    fun getUserAndHomeList() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun getUserAndHomeList(): Flow<List<UserAndHomeList>> {
+        return userDao.getAllUsersAndHome()
+    }
 
+    fun addUser(userEntity: UserEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            userDao.insertUsers(userEntity)
         }
     }
 

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "home")
 data class HomeEntity(
     @PrimaryKey(autoGenerate = true)
-    var homeId: Long = 0L,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "userId")
     var userId: Long,

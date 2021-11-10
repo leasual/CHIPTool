@@ -17,5 +17,5 @@ interface ElectricalMeasureDao {
     suspend fun deleteElectricalMeasures(vararg device: ElectricalMeasureEntity)
 
     @Query("SELECT * FROM electrical_measure_device")
-    suspend fun getAllElectricalMeasures(): Flow<List<ElectricalMeasureEntity>>
+    fun getAllElectricalMeasures(): Flow<List<ElectricalMeasureEntity>>
 }

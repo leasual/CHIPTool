@@ -17,5 +17,5 @@ interface DimmerDao {
     suspend fun deleteDimmers(vararg device: DimmerEntity)
 
     @Query("SELECT * FROM dimmer_device")
-    suspend fun getAllDimmers(): Flow<List<DimmerEntity>>
+    fun getAllDimmers(): Flow<List<DimmerEntity>>
 }

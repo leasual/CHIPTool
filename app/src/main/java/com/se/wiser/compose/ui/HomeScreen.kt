@@ -36,6 +36,9 @@ import com.se.wiser.compose.component.OneDimmerCard
 import com.se.wiser.compose.component.OneSwitchCard
 import com.se.wiser.compose.theme.ChipTheme
 import com.se.wiser.compose.viewmodel.HomeViewModel
+import com.se.wiser.data.dao.GatewayDao
+import com.se.wiser.data.dao.UserDao
+import com.se.wiser.data.entity.UserEntity
 import com.se.wiser.model.BaseDevice
 import com.se.wiser.model.DimmerDevice
 import com.se.wiser.model.OnOffDevice
@@ -54,7 +57,9 @@ fun HomeScreen(
     val expandedCardIds = viewModel.expandedCardIdsList.collectAsState()
     val expandedComposeCardIds = viewModel.expandedComposeCardIdsList.collectAsState()
     val scrollState = rememberLazyListState()
+    val userAndHomeList = viewModel.getUserAndHomeList().collectAsState(arrayListOf())
 //    Log.d(TAG, "expandedCardIds= ${expandedCardIds.value}")
+    Log.d(TAG, "userAndHomeList=${userAndHomeList.value.size}")
     HomeScreen(
         viewModel = viewModel,
         openDrawer = openDrawer,
@@ -108,7 +113,14 @@ fun HomeScreen(
                 },
                 actions = {
                     IconButton(
-                        onClick = navigateToAddDevice,
+//                        onClick = navigateToAddDevice,
+                    onClick = {
+                        viewModel.addUser(
+                            UserEntity(
+                                1, "James", "123456"
+                            )
+                        )
+                    }
                     ) {
                         Icon(
                             painter = painterResource(id = R.mipmap.outline_add_white_24),
@@ -332,11 +344,11 @@ private fun LoadingContent(
 //@Preview("Home screen (large screen)", device = Devices.PIXEL_C)
 @Composable
 fun PreviewHomeScreen() {
-    ChipTheme {
-        HomeScreen(
-            viewModel = HomeViewModel(app = App()),
-            navigateToDevice = { a, b -> },
-            navigateToAddDevice = { /*TODO*/ },
-            openDrawer = { /*TODO*/ })
-    }
+//    ChipTheme {
+//        HomeScreen(
+//            viewModel = HomeViewModel(app = App(), , ),
+//            navigateToDevice = { a, b -> },
+//            navigateToAddDevice = { /*TODO*/ },
+//            openDrawer = { /*TODO*/ })
+//    }
 }

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "dimmer_device")
 data class DimmerEntity(
     @PrimaryKey(autoGenerate = true)
-    var deviceId: Long = 0L,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "userId")
     var userId: Int,

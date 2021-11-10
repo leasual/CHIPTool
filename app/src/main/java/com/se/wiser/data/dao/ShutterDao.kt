@@ -17,5 +17,5 @@ interface ShutterDao {
     suspend fun deleteShutters(vararg device: ShutterEntity)
 
     @Query("SELECT * FROM shutter_device")
-    suspend fun getAllShutters(): Flow<List<ShutterEntity>>
+    fun getAllShutters(): Flow<List<ShutterEntity>>
 }

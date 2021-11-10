@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class ElectricalMeasureEntity(
 
     @PrimaryKey(autoGenerate = true)
-    var deviceId: Long = 0L,
+    var id: Long = 0L,
 
     @ColumnInfo(name = "userId")
     var userId: Int,

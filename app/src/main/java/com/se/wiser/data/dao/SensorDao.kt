@@ -16,6 +16,6 @@ interface SensorDao {
     @Delete
     suspend fun deleteSensors(vararg device: SensorEntity)
 
-    @Query("SELECT * FROM dimmer_device")
-    suspend fun getAllSensors(): Flow<List<SensorEntity>>
+    @Query("SELECT * FROM sensor_device")
+    fun getAllSensors(): Flow<List<SensorEntity>>
 }

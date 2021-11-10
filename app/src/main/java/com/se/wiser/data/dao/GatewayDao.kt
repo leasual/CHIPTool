@@ -18,9 +18,9 @@ interface GatewayDao {
     suspend fun deleteGateways(vararg device: GatewayEntity)
 
     @Query("SELECT * FROM gateway")
-    suspend fun getAllGateways(): Flow<List<GatewayEntity>>
+    fun getAllGateways(): Flow<List<GatewayEntity>>
 
     @Transaction
-    @Query("SELECT * FROM gateway WHERE gatewayId = :userId AND homeCreatorId =:homeId")
-    suspend fun getUsersWithPlaylists(userId: Long, homeId: Long): Flow<List<GatewayAndDeviceList>>
+    @Query("SELECT * FROM gateway WHERE userId = :userId AND homeId =:homeId")
+    fun getUsersWithPlaylists(userId: Long, homeId: Long): Flow<List<GatewayAndDeviceList>>
 }
