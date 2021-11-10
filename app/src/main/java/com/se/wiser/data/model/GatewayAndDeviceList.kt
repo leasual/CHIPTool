@@ -11,9 +11,29 @@ data class GatewayAndDeviceList(
         entityColumn = "gatewayId"
     )
     val sensorList: List<SensorEntity>?,
-//    val shutterList: List<ShutterEntity>?,
-//    val HumidityAndTempList: List<HumidityAndTempEntity>?,
-//    val switchList: List<SwitchEntity>?,
-//    val dimmerList: List<DimmerEntity>?,
-//    val electricalMeasureList: List<ElectricalMeasureEntity>?,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "gatewayId"
+    )
+    val shutterList: List<ShutterEntity>?,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "gatewayId"
+    )
+    val HumidityAndTempList: List<HumidityAndTempEntity>?,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "gatewayId"
+    )
+    val switchList: List<SwitchEntity>?,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "gatewayId"
+    )
+    val dimmerList: List<DimmerEntity>?,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "gatewayId"
+    )
+    val electricalMeasureList: List<ElectricalMeasureEntity>?,
 )
