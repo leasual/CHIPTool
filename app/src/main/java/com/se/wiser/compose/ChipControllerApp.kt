@@ -3,10 +3,11 @@ package com.se.wiser.compose
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -30,19 +31,12 @@ fun ChipControllerApp(
                 setSystemBarsColor(MaterialTheme.colors.primary, darkIcons = darkIcons)
                 setNavigationBarColor(MaterialTheme.colors.primary, darkIcons = darkIcons)
             }
-//            SideEffect {
-//                systemUiController.run {
-//                    setStatusBarColor(MaterialTheme.colors.background, darkIcons = darkIcons)
-//                    setSystemBarsColor(Color.Transparent, darkIcons = darkIcons)
-//                    setNavigationBarColor(Color.Transparent, darkIcons = darkIcons)
-//                }
-//            }
             val navController = rememberNavController()
             val coroutineScope = rememberCoroutineScope()
             val scaffoldState = rememberScaffoldState()
             val tabItems = listOf<TabItem>(
                 TabItem(R.mipmap.outline_home_white_24, "Device", MainDestinations.Home),
-                TabItem(R.mipmap.outline_group_work_white_24, "Group", MainDestinations.AddDevice),
+                TabItem(R.mipmap.outline_group_work_white_24, "Group", MainDestinations.Group),
             )
 
 //            val navBackStackEntry by navController.currentBackStackEntryAsState()

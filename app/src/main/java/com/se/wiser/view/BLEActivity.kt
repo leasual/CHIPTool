@@ -1,8 +1,7 @@
 package com.se.wiser.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.chip.chiptool.R
+import androidx.appcompat.app.AppCompatActivity
 import com.google.chip.chiptool.databinding.ActivityBleactivityBinding
 
 class BLEActivity : AppCompatActivity() {

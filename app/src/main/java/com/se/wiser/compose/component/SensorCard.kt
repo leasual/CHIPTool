@@ -12,8 +12,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.chip.chiptool.R
-import com.se.wiser.compose.theme.*
+import com.se.wiser.compose.theme.ChipTheme
+import com.se.wiser.compose.theme.contentBackground
+import com.se.wiser.compose.theme.schneider
 import com.se.wiser.model.*
 import com.se.wiser.utils.DeviceUtil
 import com.se.wiser.utils.ProductModeId

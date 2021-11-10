@@ -1,14 +1,17 @@
-package com.se.wiser.data
+package com.se.wiser.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user")
-data class UserItem(
+data class UserEntity(
     @PrimaryKey(autoGenerate = true)
     var userId: Long = 0L,
 
     @ColumnInfo(name = "username")
-    var userName: String
+    var userName: String,
+
+    @ColumnInfo(name = "phone")
+    var phone: String
 )

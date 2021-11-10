@@ -44,8 +44,8 @@ import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.google.chip.chiptool.R
 import com.google.chip.chiptool.SelectActionFragment
 import com.google.chip.chiptool.util.FragmentUtil
-import java.io.IOException
 import kotlinx.android.synthetic.main.barcode_fragment.view.inputAddressBtn
+import java.io.IOException
 
 /** Launches the camera to scan for QR code. */
 class BarcodeFragment : Fragment(), CHIPBarcodeProcessor.BarcodeDetectionListener {

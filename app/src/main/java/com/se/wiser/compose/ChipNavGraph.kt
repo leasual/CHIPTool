@@ -10,14 +10,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.se.wiser.compose.ui.AddDeviceScreen
-import com.se.wiser.compose.ui.HomeScreen
-import com.se.wiser.compose.ui.ScanScreen
-import com.se.wiser.compose.ui.SwitchOrDimmerScreen
-import com.se.wiser.compose.viewmodel.AddDeviceViewModel
-import com.se.wiser.compose.viewmodel.HomeViewModel
-import com.se.wiser.compose.viewmodel.ScanViewModel
-import com.se.wiser.compose.viewmodel.SwitchOrDimmerViewModel
+import com.se.wiser.compose.ui.*
+import com.se.wiser.compose.viewmodel.*
 import com.se.wiser.data.AppContainer
 import com.se.wiser.model.BaseDevice
 import com.se.wiser.model.DimmerDevice
@@ -64,6 +58,15 @@ fun ChipNavGraph(
                 navigateToAddDevice = MainActions(navController).navigateToAddDeviceScreen,
                 openDrawer = openDrawer,
                 scaffoldState = scaffoldState
+            )
+        }
+        composable(MainDestinations.Group) {
+            val viewModel = hiltViewModel<GroupViewModel>()
+            GroupScreen(
+                viewModel = viewModel,
+                scaffoldState = scaffoldState,
+                openDrawer = openDrawer,
+                navigateToAddDevice = MainActions(navController).navigateToAddDeviceScreen,
             )
         }
         composable(MainDestinations.AddDevice) {

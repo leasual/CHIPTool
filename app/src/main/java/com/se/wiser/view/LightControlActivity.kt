@@ -20,7 +20,10 @@ import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.se.wiser.App
 import com.se.wiser.adapter.GroupAdapter
-import com.se.wiser.model.*
+import com.se.wiser.model.BaseDevice
+import com.se.wiser.model.CommissioningInfo
+import com.se.wiser.model.DimmerDevice
+import com.se.wiser.model.OnOffDevice
 import com.se.wiser.utils.ClusterUtil
 import com.se.wiser.utils.DeviceUtil
 import com.se.wiser.viewmodel.LightControlViewModel

@@ -1,11 +1,9 @@
 package com.se.wiser.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import chip.setuppayload.DiscoveryCapability
+import androidx.appcompat.app.AppCompatActivity
 import com.google.chip.chiptool.databinding.ActivityAddDeviceBinding
-import com.google.chip.chiptool.setuppayloadscanner.CHIPDeviceInfo
 
 class AddDeviceActivity : AppCompatActivity() {
 

@@ -17,23 +17,16 @@ import chip.devicecontroller.ChipDeviceController
 import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.GenericChipDeviceListener
 import com.google.chip.chiptool.R
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
-import kotlinx.android.synthetic.main.on_off_client_fragment.commandStatusTv
-import kotlinx.android.synthetic.main.on_off_client_fragment.levelBar
-import kotlinx.android.synthetic.main.on_off_client_fragment.reportStatusTv
+import kotlinx.android.synthetic.main.on_off_client_fragment.*
 import kotlinx.android.synthetic.main.on_off_client_fragment.view.levelBar
 import kotlinx.android.synthetic.main.on_off_client_fragment.view.offBtn
 import kotlinx.android.synthetic.main.on_off_client_fragment.view.onBtn
 import kotlinx.android.synthetic.main.on_off_client_fragment.view.readBtn
 import kotlinx.android.synthetic.main.on_off_client_fragment.view.showSubscribeDialogBtn
 import kotlinx.android.synthetic.main.on_off_client_fragment.view.toggleBtn
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class OnOffClientFragment : Fragment() {
   private val deviceController: ChipDeviceController

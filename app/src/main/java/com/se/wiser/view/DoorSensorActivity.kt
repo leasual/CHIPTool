@@ -11,7 +11,6 @@ import com.google.chip.chiptool.GenericChipDeviceListener
 import com.google.chip.chiptool.R
 import com.google.chip.chiptool.databinding.ActivityDoorSensorBinding
 import com.se.wiser.App
-import com.se.wiser.model.BaseDevice
 import com.se.wiser.model.DoorDevice
 import com.se.wiser.utils.DeviceUtil
 import com.se.wiser.viewmodel.DeviceViewModel

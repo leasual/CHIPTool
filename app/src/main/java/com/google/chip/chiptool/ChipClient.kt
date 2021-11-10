@@ -21,12 +21,7 @@ import android.content.Context
 import android.util.Log
 import chip.devicecontroller.ChipDeviceController
 import chip.devicecontroller.GetConnectedDeviceCallbackJni.GetConnectedDeviceCallback
-import chip.platform.AndroidBleManager
-import chip.platform.AndroidChipPlatform
-import chip.platform.ChipMdnsCallbackImpl
-import chip.platform.NsdManagerServiceResolver
-import chip.platform.PreferencesConfigurationManager
-import chip.platform.PreferencesKeyValueStoreManager
+import chip.platform.*
 import com.se.wiser.utils.ClusterUtil
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException

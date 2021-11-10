@@ -12,16 +12,11 @@ import chip.devicecontroller.ChipDeviceController
 import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.GenericChipDeviceListener
 import com.google.chip.chiptool.R
-import kotlinx.android.synthetic.main.basic_client_fragment.basicClusterCommandStatus
-import kotlinx.android.synthetic.main.basic_client_fragment.userLabelEd
+import kotlinx.android.synthetic.main.basic_client_fragment.*
 import kotlinx.android.synthetic.main.basic_client_fragment.view.readProductNameBtn
 import kotlinx.android.synthetic.main.basic_client_fragment.view.readUserLabelBtn
 import kotlinx.android.synthetic.main.basic_client_fragment.view.writeUserLabelBtn
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class BasicClientFragment : Fragment() {
   private val deviceController: ChipDeviceController

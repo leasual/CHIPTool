@@ -1,12 +1,8 @@
 package com.se.wiser.model
 
 import android.content.Context
-import android.os.Parcelable
 import com.google.chip.chiptool.R
 import com.se.wiser.utils.ClusterUtil
-import kotlinx.android.parcel.IgnoredOnParcel
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
 import java.io.Serializable
 import kotlin.math.roundToInt
 

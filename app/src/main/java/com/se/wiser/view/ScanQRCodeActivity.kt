@@ -1,28 +1,9 @@
 package com.se.wiser.view
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import android.widget.Toast
-import androidx.annotation.RequiresPermission
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
-import chip.setuppayload.SetupPayload
-import chip.setuppayload.SetupPayloadParser
 //import com.google.android.gms.vision.CameraSource
 //import com.google.android.gms.vision.barcode.Barcode
 //import com.google.android.gms.vision.barcode.BarcodeDetector
-import com.google.chip.chiptool.R
-import com.google.chip.chiptool.databinding.ActivityScanQrcodeBinding
-import com.google.chip.chiptool.setuppayloadscanner.*
-import com.google.chip.chiptool.util.FragmentUtil
-import java.io.IOException
+import androidx.appcompat.app.AppCompatActivity
 
 class ScanQRCodeActivity : AppCompatActivity()/*, CHIPBarcodeProcessor.BarcodeDetectionListener*/ {
 //    lateinit var binding: ActivityScanQrcodeBinding

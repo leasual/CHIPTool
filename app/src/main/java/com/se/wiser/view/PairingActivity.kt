@@ -1,13 +1,11 @@
 package com.se.wiser.view
 
 import android.bluetooth.BluetoothGatt
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.github.druk.dnssd.*

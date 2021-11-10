@@ -6,7 +6,6 @@ import com.github.druk.dnssd.*
 import com.se.wiser.model.AddressResponse
 import com.se.wiser.model.BrowserResponse
 import com.se.wiser.model.ResolveResponse
-import com.se.wiser.view.PairingActivity
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first

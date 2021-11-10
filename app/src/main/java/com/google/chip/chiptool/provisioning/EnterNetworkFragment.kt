@@ -29,13 +29,9 @@ import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.R
 import com.google.chip.chiptool.util.DeviceIdUtil
 import com.google.chip.chiptool.util.FragmentUtil
-import kotlinx.android.synthetic.main.enter_thread_network_fragment.channelEd
-import kotlinx.android.synthetic.main.enter_thread_network_fragment.masterKeyEd
-import kotlinx.android.synthetic.main.enter_thread_network_fragment.panIdEd
-import kotlinx.android.synthetic.main.enter_thread_network_fragment.xpanIdEd
-import kotlinx.android.synthetic.main.enter_wifi_network_fragment.pwdEd
-import kotlinx.android.synthetic.main.enter_wifi_network_fragment.ssidEd
-import kotlinx.android.synthetic.main.enter_wifi_network_fragment.view.saveNetworkBtn
+import kotlinx.android.synthetic.main.enter_thread_network_fragment.*
+import kotlinx.android.synthetic.main.enter_wifi_network_fragment.*
+import kotlinx.android.synthetic.main.enter_wifi_network_fragment.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

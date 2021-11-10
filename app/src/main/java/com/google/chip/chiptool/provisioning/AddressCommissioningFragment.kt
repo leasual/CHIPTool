@@ -6,15 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.R
 import com.google.chip.chiptool.setuppayloadscanner.BarcodeFragment
 import com.google.chip.chiptool.setuppayloadscanner.CHIPDeviceInfo
 import com.google.chip.chiptool.util.FragmentUtil
-import kotlinx.android.synthetic.main.address_commissioning_fragment.addressEditText
-import kotlinx.android.synthetic.main.address_commissioning_fragment.commissionBtn
-import kotlinx.android.synthetic.main.address_commissioning_fragment.discriminatorEditText
-import kotlinx.android.synthetic.main.address_commissioning_fragment.pincodeEditText
+import kotlinx.android.synthetic.main.address_commissioning_fragment.*
 
 class AddressCommissioningFragment : Fragment() {
   override fun onCreateView(

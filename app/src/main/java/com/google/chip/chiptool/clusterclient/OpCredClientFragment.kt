@@ -11,14 +11,10 @@ import chip.devicecontroller.ChipDeviceController
 import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.GenericChipDeviceListener
 import com.google.chip.chiptool.R
-import kotlinx.android.synthetic.main.op_cred_client_fragment.opCredClusterCommandStatus
+import kotlinx.android.synthetic.main.op_cred_client_fragment.*
 import kotlinx.android.synthetic.main.op_cred_client_fragment.view.readCommissionedFabricBtn
 import kotlinx.android.synthetic.main.op_cred_client_fragment.view.readSupportedFabricBtn
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class OpCredClientFragment : Fragment() {
   private val deviceController: ChipDeviceController

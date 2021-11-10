@@ -2,7 +2,6 @@ package com.se.wiser.utils
 
 import android.content.Context
 import com.google.chip.chiptool.R
-import com.se.wiser.model.BridgeDevice
 import com.se.wiser.model.DeviceType
 import com.se.wiser.model.ThreadDevice
 import com.se.wiser.model.WIFIDevice

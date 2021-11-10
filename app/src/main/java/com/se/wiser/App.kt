@@ -1,10 +1,10 @@
 package com.se.wiser
 
 import android.app.Application
-import chip.platform.*
 import com.se.wiser.data.AppContainer
 import com.se.wiser.data.AppContainerImpl
-import com.se.wiser.model.*
+import com.se.wiser.model.BaseDevice
+import com.se.wiser.model.UpdateEvent
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.flow.MutableStateFlow
 

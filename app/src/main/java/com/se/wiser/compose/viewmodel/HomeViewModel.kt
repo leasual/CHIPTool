@@ -1,32 +1,22 @@
 package com.se.wiser.compose.viewmodel
 
 import android.util.Log
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import chip.devicecontroller.ChipClusters
 import com.google.chip.chiptool.ChipClient
-import com.google.chip.chiptool.util.DeviceIdUtil
 import com.se.wiser.App
-import com.se.wiser.data.device.GatewayRepository
-import com.se.wiser.data.gateway.DeviceRepository
+import com.se.wiser.data.MatterDatabase
 import com.se.wiser.model.*
 import com.se.wiser.utils.ClusterId
 import com.se.wiser.utils.ClusterUtil
-import com.se.wiser.utils.ProductModeId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 
@@ -63,6 +53,12 @@ class HomeViewModel @Inject constructor(val app: App/*,
         var commissioningInfo: CommissioningInfo?= null,
         val random: Long = System.currentTimeMillis()
     )
+
+    fun getUserAndHomeList() {
+        viewModelScope.launch(Dispatchers.IO) {
+
+        }
+    }
 
     /**
      * OnOff device

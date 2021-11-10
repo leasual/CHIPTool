@@ -28,8 +28,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.chip.chiptool.util.FragmentUtil
-import kotlinx.android.synthetic.main.select_action_fragment.provisionThreadCredentialsBtn
-import kotlinx.android.synthetic.main.select_action_fragment.provisionWifiCredentialsBtn
+import kotlinx.android.synthetic.main.select_action_fragment.*
 import kotlinx.android.synthetic.main.select_action_fragment.view.*
 
 /** Fragment to select from various options to interact with a CHIP device. */

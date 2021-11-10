@@ -1,19 +1,13 @@
 package com.se.wiser.viewmodel
 
 import android.bluetooth.BluetoothGatt
-import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import chip.devicecontroller.ChipClusters
 import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.GenericChipDeviceListener
 import com.google.chip.chiptool.setuppayloadscanner.CHIPDeviceInfo
-import com.google.chip.chiptool.util.DeviceIdUtil
-import com.se.wiser.App
-import com.se.wiser.utils.ClusterUtil
-import com.se.wiser.view.PairingActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow

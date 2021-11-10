@@ -25,8 +25,11 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
+
 import androidx.annotation.RequiresPermission;
+
 import com.google.android.gms.vision.CameraSource;
+
 import java.io.IOException;
 
 /** Class that displays the camera view. */

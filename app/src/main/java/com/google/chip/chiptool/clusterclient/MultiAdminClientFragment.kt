@@ -11,13 +11,10 @@ import chip.devicecontroller.ChipDeviceController
 import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.GenericChipDeviceListener
 import com.google.chip.chiptool.R
-import kotlinx.android.synthetic.main.multi_admin_client_fragment.discriminatorEd
-import kotlinx.android.synthetic.main.multi_admin_client_fragment.multiAdminClusterCommandStatus
-import kotlinx.android.synthetic.main.multi_admin_client_fragment.setupPinCodeEd
+import kotlinx.android.synthetic.main.multi_admin_client_fragment.*
 import kotlinx.android.synthetic.main.multi_admin_client_fragment.view.basicCommissioningMethodBtn
 import kotlinx.android.synthetic.main.multi_admin_client_fragment.view.enhancedCommissioningMethodBtn
 import kotlinx.android.synthetic.main.multi_admin_client_fragment.view.revokeBtn
-import kotlinx.android.synthetic.main.on_off_client_fragment.*
 import kotlinx.coroutines.*
 
 class MultiAdminClientFragment : Fragment() {

@@ -9,13 +9,8 @@ import androidx.lifecycle.viewModelScope
 import chip.devicecontroller.ChipDeviceController
 import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.GenericChipDeviceListener
-import com.google.chip.chiptool.R
-import com.google.chip.chiptool.databinding.ActivityDoorSensorBinding
 import com.google.chip.chiptool.databinding.ActivityWindowCoveringBinding
-import com.google.chip.chiptool.util.DeviceIdUtil
 import com.se.wiser.App
-import com.se.wiser.model.BaseDevice
-import com.se.wiser.model.DoorDevice
 import com.se.wiser.model.ShutterDevice
 import com.se.wiser.utils.ClusterUtil
 import com.se.wiser.viewmodel.DeviceViewModel

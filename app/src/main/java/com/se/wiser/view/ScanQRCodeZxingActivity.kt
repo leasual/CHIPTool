@@ -23,8 +23,6 @@ import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
-import com.se.wiser.model.DeviceType
-import com.se.wiser.model.NoneDevice
 
 
 class ScanQRCodeZxingActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener, BarcodeCallback  {

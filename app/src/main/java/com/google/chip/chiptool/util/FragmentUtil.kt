@@ -18,9 +18,8 @@
 
 package com.google.chip.chiptool.util
 
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import java.util.Locale
+import java.util.*
 
 object FragmentUtil {
     /**

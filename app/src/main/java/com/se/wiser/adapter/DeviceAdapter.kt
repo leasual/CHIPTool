@@ -1,23 +1,10 @@
 package com.se.wiser.adapter
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.chip.chiptool.R
-import com.se.wiser.App
-import com.se.wiser.model.*
-import com.se.wiser.utils.DeviceUtil
-import com.se.wiser.viewmodel.DeviceViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import com.se.wiser.model.BaseDevice
 
 class DeviceAdapter(private val onItemClick: ((model: Any, position: Int) -> Unit),
                     private val onOnOffClick: ((model: Any, position: Int) -> Unit)): BaseAdapter(onItemClick, onOnOffClick) {

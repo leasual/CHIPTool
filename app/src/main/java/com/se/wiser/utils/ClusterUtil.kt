@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import chip.devicecontroller.ChipClusters
-import chip.devicecontroller.ChipClusters.BaseChipCluster
 import chip.devicecontroller.ChipDeviceController
 import chip.devicecontroller.GetConnectedDeviceCallbackJni
 import com.google.chip.chiptool.ChipClient
@@ -17,7 +16,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 import kotlin.math.roundToInt
 
 object ClusterUtil {

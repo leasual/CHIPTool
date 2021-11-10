@@ -11,17 +11,12 @@ import chip.clusterinfo.ClusterCommandCallback
 import chip.clusterinfo.ClusterInfo
 import chip.clusterinfo.CommandInfo
 import chip.devicecontroller.ChipDeviceController
+import chip.devicecontroller.ClusterInfoMapping
 import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.GenericChipDeviceListener
 import com.google.chip.chiptool.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
-import chip.devicecontroller.ClusterInfoMapping
-import java.lang.Exception
 import kotlinx.android.synthetic.main.cluster_interaction_fragment.view.getClusterMappingBtn
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class ClusterInteractionFragment : Fragment() {
   private val deviceController: ChipDeviceController

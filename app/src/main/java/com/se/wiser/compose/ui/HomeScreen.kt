@@ -12,9 +12,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -22,7 +20,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.LocalWindowInsets
@@ -33,13 +30,15 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.chip.chiptool.R
 import com.se.wiser.App
 import com.se.wiser.compose.TAG
-import com.se.wiser.compose.component.*
+import com.se.wiser.compose.component.ExpandedCard
+import com.se.wiser.compose.component.InsetAwareTopAppBar
+import com.se.wiser.compose.component.OneDimmerCard
+import com.se.wiser.compose.component.OneSwitchCard
 import com.se.wiser.compose.theme.ChipTheme
 import com.se.wiser.compose.viewmodel.HomeViewModel
 import com.se.wiser.model.BaseDevice
 import com.se.wiser.model.DimmerDevice
 import com.se.wiser.model.OnOffDevice
-import com.se.wiser.utils.ClusterId
 import com.se.wiser.utils.ClusterUtil
 import com.se.wiser.utils.DeviceUtil
 import com.se.wiser.utils.ProductModeId
@@ -122,6 +121,7 @@ fun HomeScreen(
         }
     ) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
+        var showAddUserDialog by remember { mutableStateOf(false) }
         LoadingContent(
             empty = false,
             emptyContent = {
@@ -165,6 +165,10 @@ fun HomeScreen(
     }
 }
 
+//TODO popup add user and home
+//popup window https://dev.to/mahendranv/jetpack-compose-1-dropdownmenu-weather-ui-5fnk
+//dialog https://juejin.cn/post/6961239810463760398
+// https://stackoverflow.com/questions/68852110/show-custom-alert-dialog-in-jetpack-compose
 @Composable
 fun NoDevice(
     modifier: Modifier,

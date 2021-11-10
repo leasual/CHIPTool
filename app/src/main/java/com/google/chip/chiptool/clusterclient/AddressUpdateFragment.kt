@@ -10,9 +10,8 @@ import chip.devicecontroller.ChipDeviceController
 import com.google.chip.chiptool.ChipClient
 import com.google.chip.chiptool.R
 import com.google.chip.chiptool.util.DeviceIdUtil
-import kotlinx.android.synthetic.main.address_update_fragment.deviceIdEd
-import kotlinx.android.synthetic.main.address_update_fragment.fabricIdEd
-import kotlinx.android.synthetic.main.address_update_fragment.view.updateAddressBtn
+import kotlinx.android.synthetic.main.address_update_fragment.*
+import kotlinx.android.synthetic.main.address_update_fragment.view.*
 
 /** Fragment for updating the address of a device given its fabric and node ID. */
 class AddressUpdateFragment: Fragment() {

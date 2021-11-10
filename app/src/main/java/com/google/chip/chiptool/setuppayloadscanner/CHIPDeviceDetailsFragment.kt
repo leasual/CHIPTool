@@ -25,14 +25,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.google.chip.chiptool.R
-import kotlinx.android.synthetic.main.chip_device_info_fragment.view.discoveryCapabilitiesTv
-import kotlinx.android.synthetic.main.chip_device_info_fragment.view.discriminatorTv
-import kotlinx.android.synthetic.main.chip_device_info_fragment.view.productIdTv
-import kotlinx.android.synthetic.main.chip_device_info_fragment.view.setupCodeTv
-import kotlinx.android.synthetic.main.chip_device_info_fragment.view.vendorIdTv
-import kotlinx.android.synthetic.main.chip_device_info_fragment.view.vendorTagsContainer
-import kotlinx.android.synthetic.main.chip_device_info_fragment.view.vendorTagsLabelTv
-import kotlinx.android.synthetic.main.chip_device_info_fragment.view.versionTv
+import kotlinx.android.synthetic.main.chip_device_info_fragment.view.*
 
 /** Show the [CHIPDeviceInfo]. */
 class CHIPDeviceDetailsFragment : Fragment() {
