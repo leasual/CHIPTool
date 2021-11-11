@@ -27,4 +27,5 @@ abstract class MatterDatabase: RoomDatabase() {
     abstract fun shutterDao(): ShutterDao
     abstract fun switchDao(): SwitchDao
     abstract fun userDao(): UserDao
+    abstract fun homeDao(): HomeDao
 }

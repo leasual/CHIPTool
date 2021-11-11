@@ -24,6 +24,7 @@ object MainDestinations {
     const val Home = "home"
     const val Group = "group"
     const val NoBottomBar = "noBottomBar"
+    const val CreateUserHome = "createUserHome"
     const val Device = "device"
     const val AddDevice = "addDevice"
     const val ScanQRCode = "scanQRCode"
@@ -67,6 +68,15 @@ fun ChipNavGraph(
                 scaffoldState = scaffoldState,
                 openDrawer = openDrawer,
                 navigateToAddDevice = MainActions(navController).navigateToAddDeviceScreen,
+            )
+        }
+
+        composable(MainDestinations.CreateUserHome) {
+            val viewModel = hiltViewModel<CreateUserHomeViewModel>()
+            CreateUserHomeScreen(
+                viewModel = viewModel,
+                scaffoldState = scaffoldState,
+                navigateToHome = MainActions(navController).navigateToHomeScreen,
             )
         }
         composable(MainDestinations.AddDevice) {
@@ -155,6 +165,12 @@ class MainActions(navController: NavHostController) {
     }
     val navigatePairingScreen: (Int) -> Unit = { type ->
         navController.navigate("${MainDestinations.PairingDevice}/$type")
+    }
+    val navigateToCreateUserHomeScreen:() -> Unit = {
+        navController.navigate(MainDestinations.CreateUserHome)
+    }
+    val navigateToHomeScreen:() -> Unit = {
+        navController.navigate(MainDestinations.Home)
     }
     val upPress: () -> Unit = {
         navController.navigateUp()

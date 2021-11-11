@@ -13,5 +13,8 @@ data class UserEntity(
     var userName: String,
 
     @ColumnInfo(name = "phone")
-    var phone: String
+    var phone: String = "",
+
+    @ColumnInfo(name = "currentUserId")
+    var currentUserId: Long = 0L
 )

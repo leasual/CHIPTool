@@ -21,6 +21,9 @@ interface UserDao {
     fun getAllUsers(): Flow<List<UserEntity>>
 
     @Transaction
-    @Query("SELECT * FROM user")
-    fun getAllUsersAndHome(): Flow<List<UserAndHomeList>>
+    @Query("SELECT * FROM user WHERE id = currentUserId")
+    fun getCurrentUserHomeList(): Flow<UserAndHomeList>
+
+    @Update
+    suspend fun updateCurrentUserId(vararg users: UserEntity)
 }

@@ -57,9 +57,9 @@ fun HomeScreen(
     val expandedCardIds = viewModel.expandedCardIdsList.collectAsState()
     val expandedComposeCardIds = viewModel.expandedComposeCardIdsList.collectAsState()
     val scrollState = rememberLazyListState()
-    val userAndHomeList = viewModel.getUserAndHomeList().collectAsState(arrayListOf())
+    val currentUserAndHome = viewModel.getCurrentUserAndHome().collectAsState(null)
 //    Log.d(TAG, "expandedCardIds= ${expandedCardIds.value}")
-    Log.d(TAG, "userAndHomeList=${userAndHomeList.value.size}")
+
     HomeScreen(
         viewModel = viewModel,
         openDrawer = openDrawer,
@@ -113,14 +113,7 @@ fun HomeScreen(
                 },
                 actions = {
                     IconButton(
-//                        onClick = navigateToAddDevice,
-                    onClick = {
-                        viewModel.addUser(
-                            UserEntity(
-                                1, "James", "123456"
-                            )
-                        )
-                    }
+                        onClick = navigateToAddDevice,
                     ) {
                         Icon(
                             painter = painterResource(id = R.mipmap.outline_add_white_24),

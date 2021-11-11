@@ -16,5 +16,8 @@ data class HomeEntity(
     var homeName: String,
 
     @ColumnInfo(name = "location")
-    var location: String,
+    var location: String = "",
+
+    @ColumnInfo(name = "currentHomeId")
+    var currentHomeId: Long = 0L
 )

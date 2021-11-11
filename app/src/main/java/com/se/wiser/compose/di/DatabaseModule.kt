@@ -55,4 +55,7 @@ object DatabaseModule {
     @Provides
     fun provideUserDao(matterDatabase: MatterDatabase): UserDao = matterDatabase.userDao()
 
+    @Provides
+    fun provideHomeDao(matterDatabase: MatterDatabase): HomeDao = matterDatabase.homeDao()
+
 }

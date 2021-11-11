@@ -32,43 +32,33 @@ class HomeViewModel @Inject constructor(val app: App,
                                         val gatewayDao: GatewayDao
 ) : ViewModel() {
 
-    companion object {
-        private const val TAG = "MainViewModel"
-    }
-
-    private val _uiState = MutableStateFlow(MainUiModel(null))
-    val uiState = _uiState
-    private val mainDeviceList = arrayListOf<Any>()
-    private var lastDeviceId: Long = 0
-    //
+//    companion object {
+//        private const val TAG = "MainViewModel"
+//    }
+//
+//    private val _uiState = MutableStateFlow(MainUiModel(null))
+//    val uiState = _uiState
+//    private val mainDeviceList = arrayListOf<Any>()
+//    private var lastDeviceId: Long = 0
+//    //
     private val _expandedCardIdsList = MutableStateFlow(listOf<Int>())
     private val _expandedComposeCardIdsList = MutableStateFlow(listOf<Int>())
     val expandedCardIdsList: StateFlow<List<Int>> get() = _expandedCardIdsList
     val expandedComposeCardIdsList: StateFlow<List<Int>> get() = _expandedComposeCardIdsList
-
-    private var partListCache = mutableListOf<Int>()
-    private var readPartListTimer: Timer? = null
-    private var openCommissioningJob: Job? = null
-    private var revokeCommissioningJob: Job? = null
-
-    data class MainUiModel(
-        val deviceList: ArrayList<Any>? = null,
-        var isLoading: Boolean? = null,
-        var commissionState: Boolean? = null,
-        var revokeCommissionState: Boolean? = null,
-        var commissioningInfo: CommissioningInfo?= null,
-        val random: Long = System.currentTimeMillis()
-    )
-
-    fun getUserAndHomeList(): Flow<List<UserAndHomeList>> {
-        return userDao.getAllUsersAndHome()
-    }
-
-    fun addUser(userEntity: UserEntity) {
-        viewModelScope.launch(Dispatchers.IO) {
-            userDao.insertUsers(userEntity)
-        }
-    }
+//
+//    private var partListCache = mutableListOf<Int>()
+//    private var readPartListTimer: Timer? = null
+//    private var openCommissioningJob: Job? = null
+//    private var revokeCommissioningJob: Job? = null
+//
+//    data class MainUiModel(
+//        val deviceList: ArrayList<Any>? = null,
+//        var isLoading: Boolean? = null,
+//        var commissionState: Boolean? = null,
+//        var revokeCommissionState: Boolean? = null,
+//        var commissioningInfo: CommissioningInfo?= null,
+//        val random: Long = System.currentTimeMillis()
+//    )
 
     /**
      * OnOff device
@@ -106,117 +96,121 @@ class HomeViewModel @Inject constructor(val app: App,
         }
     }
 
+    fun getCurrentUserAndHome(): Flow<UserAndHomeList> {
+        return userDao.getCurrentUserHomeList()
+    }
+
     /**
      * get bridge device list
      */
-    fun getDeviceList(lastDeviceId: Long) {
-        _uiState.value = MainUiModel(arrayListOf(), isLoading = true)
-        this.lastDeviceId = lastDeviceId
-        viewModelScope.launch(Dispatchers.IO) {
-
-            val partList = ClusterUtil.getPartList(0, lastDeviceId, app)
-            //cache first
-            if (partListCache.isEmpty()) {
-                partListCache.addAll(partList)
-            }
-            val deviceList = arrayListOf<Any>()
-            partList.mapIndexed { _, endpoint ->
-                Log.d(TAG, "partList Compose endpoint= $endpoint")
-
-                val composeLabel = ClusterUtil.getUserLabel(endpoint, lastDeviceId, app)
-                val composeDevice = ComposeDevice(
-                    Random(1000).nextLong(), composeLabel,
-                    arrayListOf(), true
-                )
-                val composeDeviceList = arrayListOf<Any>()
-                val composePartList = ClusterUtil.getPartList(endpoint, lastDeviceId, app)
-                Log.d(TAG, "composeLabel=$composeLabel partList size= ${composePartList.size}")
-                val level = 0
-                if (composePartList.isNotEmpty()) {
-                    val productId = ClusterUtil.getProductName(endpoint, lastDeviceId, app)
-                    Log.d(TAG, "compose productId=$productId")
-                    composePartList.mapIndexed { index, endpoint ->
-                        Log.d(TAG, "compose device partList= $endpoint")
-                        val device = ClusterUtil.getDeviceList(endpoint, lastDeviceId, app)
-                        val label = ClusterUtil.getUserLabel(endpoint, lastDeviceId, app)
-                        val serverList = ClusterUtil.getServerList(endpoint, lastDeviceId, app)
-                        Log.d(TAG, "serverList=$serverList")
-                        if (device.isNotEmpty() && serverList.isNotEmpty()) {
-                            val serverListInt = IntArray(serverList.size)
-                            serverList.mapIndexed { index, data ->
-                                serverListInt[index] = data.toInt()
-                            }
-                            var state = false
-                            if (serverListInt.contains(ClusterId.ZCL_ON_OFF_CLUSTER_ID)) {
-                                state = ClusterUtil.readOnOffAttribute(endpoint, lastDeviceId, app)
-                            }
-                            ChipClient.getDeviceController(app).addDynamicEndpoint(
-                                endpoint.toLong(),
-                                device[0].type.toInt(),
-                                serverListInt
-                            )
-                            val subDevice = ClusterUtil.createNewDevice(productId, endpoint, label, state)
-                            ClusterUtil.subscribeAndReportByServerList(
-                                endpoint,
-                                lastDeviceId,
-                                app,
-                                subDevice,
-                                serverListInt,
-                                this
-                            )
-                            composeDeviceList.add(subDevice)
-                            app.deviceStateMap[endpoint] = subDevice
-                        } else {
-                            Log.e(TAG, "no device")
-                        }
-                    }
-                    composeDevice.subDeviceList = composeDeviceList
-                    deviceList.add(composeDevice)
-                } else {
-                    val device = ClusterUtil.getDeviceList(endpoint, lastDeviceId, app)
-                    val label = ClusterUtil.getUserLabel(endpoint, lastDeviceId, app)
-                    val serverList = ClusterUtil.getServerList(endpoint, lastDeviceId, app)
-                    val productId = ClusterUtil.getProductName(endpoint, lastDeviceId, app)
-                    Log.d(TAG, "productId=$productId")
-                    Log.d(TAG, "serverList=$serverList")
-                    if (device.isNotEmpty() && serverList.isNotEmpty()) {
-                        val serverListInt = IntArray(serverList.size)
-                        serverList.mapIndexed { index, data -> serverListInt[index] = data.toInt() }
-                        var state = false
-                        if (serverListInt.contains(ClusterId.ZCL_ON_OFF_CLUSTER_ID)) {
-                            state = ClusterUtil.readOnOffAttribute(endpoint, lastDeviceId, app)
-                        }
-                        ChipClient.getDeviceController(app)
-                            .addDynamicEndpoint(
-                                endpoint.toLong(),
-                                device[0].type.toInt(),
-                                serverListInt
-                            )
-                        //create new device
-                        val subDevice = ClusterUtil.createNewDevice(productId, endpoint, label, state)
-                        ClusterUtil.subscribeAndReportByServerList(
-                            endpoint,
-                            lastDeviceId,
-                            app,
-                            subDevice,
-                            serverListInt,
-                            this
-                        )
-                        Log.d(TAG, "endpoint=$endpoint read level=$level")
-                        deviceList.add(subDevice)
-                        app.deviceStateMap[endpoint] = subDevice
-                    } else {
-                        Log.e(TAG, "no device")
-                    }
-                }
-            }
-            updateSubDevices(deviceList, BridgeDevice)
-            _uiState.value = MainUiModel(deviceList = mainDeviceList, isLoading = false)
-            if (readPartListTimer == null) {
-//                taskForReadPartList()
-            }
-        }
-    }
+//    fun getDeviceList(lastDeviceId: Long) {
+//        _uiState.value = MainUiModel(arrayListOf(), isLoading = true)
+//        this.lastDeviceId = lastDeviceId
+//        viewModelScope.launch(Dispatchers.IO) {
+//
+//            val partList = ClusterUtil.getPartList(0, lastDeviceId, app)
+//            //cache first
+//            if (partListCache.isEmpty()) {
+//                partListCache.addAll(partList)
+//            }
+//            val deviceList = arrayListOf<Any>()
+//            partList.mapIndexed { _, endpoint ->
+//                Log.d(TAG, "partList Compose endpoint= $endpoint")
+//
+//                val composeLabel = ClusterUtil.getUserLabel(endpoint, lastDeviceId, app)
+//                val composeDevice = ComposeDevice(
+//                    Random(1000).nextLong(), composeLabel,
+//                    arrayListOf(), true
+//                )
+//                val composeDeviceList = arrayListOf<Any>()
+//                val composePartList = ClusterUtil.getPartList(endpoint, lastDeviceId, app)
+//                Log.d(TAG, "composeLabel=$composeLabel partList size= ${composePartList.size}")
+//                val level = 0
+//                if (composePartList.isNotEmpty()) {
+//                    val productId = ClusterUtil.getProductName(endpoint, lastDeviceId, app)
+//                    Log.d(TAG, "compose productId=$productId")
+//                    composePartList.mapIndexed { index, endpoint ->
+//                        Log.d(TAG, "compose device partList= $endpoint")
+//                        val device = ClusterUtil.getDeviceList(endpoint, lastDeviceId, app)
+//                        val label = ClusterUtil.getUserLabel(endpoint, lastDeviceId, app)
+//                        val serverList = ClusterUtil.getServerList(endpoint, lastDeviceId, app)
+//                        Log.d(TAG, "serverList=$serverList")
+//                        if (device.isNotEmpty() && serverList.isNotEmpty()) {
+//                            val serverListInt = IntArray(serverList.size)
+//                            serverList.mapIndexed { index, data ->
+//                                serverListInt[index] = data.toInt()
+//                            }
+//                            var state = false
+//                            if (serverListInt.contains(ClusterId.ZCL_ON_OFF_CLUSTER_ID)) {
+//                                state = ClusterUtil.readOnOffAttribute(endpoint, lastDeviceId, app)
+//                            }
+//                            ChipClient.getDeviceController(app).addDynamicEndpoint(
+//                                endpoint.toLong(),
+//                                device[0].type.toInt(),
+//                                serverListInt
+//                            )
+//                            val subDevice = ClusterUtil.createNewDevice(productId, endpoint, label, state)
+//                            ClusterUtil.subscribeAndReportByServerList(
+//                                endpoint,
+//                                lastDeviceId,
+//                                app,
+//                                subDevice,
+//                                serverListInt,
+//                                this
+//                            )
+//                            composeDeviceList.add(subDevice)
+//                            app.deviceStateMap[endpoint] = subDevice
+//                        } else {
+//                            Log.e(TAG, "no device")
+//                        }
+//                    }
+//                    composeDevice.subDeviceList = composeDeviceList
+//                    deviceList.add(composeDevice)
+//                } else {
+//                    val device = ClusterUtil.getDeviceList(endpoint, lastDeviceId, app)
+//                    val label = ClusterUtil.getUserLabel(endpoint, lastDeviceId, app)
+//                    val serverList = ClusterUtil.getServerList(endpoint, lastDeviceId, app)
+//                    val productId = ClusterUtil.getProductName(endpoint, lastDeviceId, app)
+//                    Log.d(TAG, "productId=$productId")
+//                    Log.d(TAG, "serverList=$serverList")
+//                    if (device.isNotEmpty() && serverList.isNotEmpty()) {
+//                        val serverListInt = IntArray(serverList.size)
+//                        serverList.mapIndexed { index, data -> serverListInt[index] = data.toInt() }
+//                        var state = false
+//                        if (serverListInt.contains(ClusterId.ZCL_ON_OFF_CLUSTER_ID)) {
+//                            state = ClusterUtil.readOnOffAttribute(endpoint, lastDeviceId, app)
+//                        }
+//                        ChipClient.getDeviceController(app)
+//                            .addDynamicEndpoint(
+//                                endpoint.toLong(),
+//                                device[0].type.toInt(),
+//                                serverListInt
+//                            )
+//                        //create new device
+//                        val subDevice = ClusterUtil.createNewDevice(productId, endpoint, label, state)
+//                        ClusterUtil.subscribeAndReportByServerList(
+//                            endpoint,
+//                            lastDeviceId,
+//                            app,
+//                            subDevice,
+//                            serverListInt,
+//                            this
+//                        )
+//                        Log.d(TAG, "endpoint=$endpoint read level=$level")
+//                        deviceList.add(subDevice)
+//                        app.deviceStateMap[endpoint] = subDevice
+//                    } else {
+//                        Log.e(TAG, "no device")
+//                    }
+//                }
+//            }
+//            updateSubDevices(deviceList, BridgeDevice)
+//            _uiState.value = MainUiModel(deviceList = mainDeviceList, isLoading = false)
+//            if (readPartListTimer == null) {
+////                taskForReadPartList()
+//            }
+//        }
+//    }
 
     /**
      * observe part list change
@@ -282,30 +276,30 @@ class HomeViewModel @Inject constructor(val app: App,
     /**
      * update device state
      */
-    private fun updateSubDevices(deviceList: ArrayList<Any>, type: DeviceType) {
-        val device = mainDeviceList.firstOrNull() { (it as? GroupDevice)?.type == type }
-        val name = when(type) {
-            BridgeDevice -> "ZB-Matter Bridge"
-            ThreadDevice -> "Thread Group"
-            WIFIDevice -> "WIFI Group"
-            else -> ""
-        }
-        (device as? GroupDevice)?.let { device.subDeviceList = deviceList } ?: mainDeviceList.add(
-            GroupDevice(
-                type,
-                name,
-                deviceList,
-                true
-            ))
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        readPartListTimer?.cancel()
-        readPartListTimer = null
-        openCommissioningJob?.cancel()
-        openCommissioningJob = null
-        revokeCommissioningJob?.cancel()
-        revokeCommissioningJob = null
-    }
+//    private fun updateSubDevices(deviceList: ArrayList<Any>, type: DeviceType) {
+//        val device = mainDeviceList.firstOrNull() { (it as? GroupDevice)?.type == type }
+//        val name = when(type) {
+//            BridgeDevice -> "ZB-Matter Bridge"
+//            ThreadDevice -> "Thread Group"
+//            WIFIDevice -> "WIFI Group"
+//            else -> ""
+//        }
+//        (device as? GroupDevice)?.let { device.subDeviceList = deviceList } ?: mainDeviceList.add(
+//            GroupDevice(
+//                type,
+//                name,
+//                deviceList,
+//                true
+//            ))
+//    }
+//
+//    override fun onCleared() {
+//        super.onCleared()
+//        readPartListTimer?.cancel()
+//        readPartListTimer = null
+//        openCommissioningJob?.cancel()
+//        openCommissioningJob = null
+//        revokeCommissioningJob?.cancel()
+//        revokeCommissioningJob = null
+//    }
 }
